@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ProgrammaticLayout.Net</id>
+    <version>0.2.0</version>
+    <authors>szotp</authors>
+    <owners>szotp</owners>
+    <licenseUrl>https://github.com/szotp/ProgrammaticLayout.Net/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/szotp/ProgrammaticLayout.Net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Autolayout helper for Xamarin iOS applications.</description>
+    <releaseNotes>Experimental alpha version.</releaseNotes>
+    <tags>Xamarin autolayout UIStackView iOS</tags>
+  </metadata>
+</package>

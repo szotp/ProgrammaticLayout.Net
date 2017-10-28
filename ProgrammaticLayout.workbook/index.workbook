@@ -1,0 +1,111 @@
+---
+uti: com.xamarin.workbook
+id: 18b2085d-9813-4e27-91b2-dddd8705667b
+title: ProgrammaticLayout
+platforms:
+- iOS
+---
+
+Download this file and open in Xamarin Workbooks to check the interactive examples.
+
+ProgrammaticLayout.Net is a simple layout library optimized for maximum readability. Views can be created and arranged in declarative style. Code below is just setup to display UIViews in the Xamarin Workbooks, so you can skip it.
+
+```csharp
+// Note: build solution first to make sure these DLLs were created
+#r "../ProgrammaticLayout/bin/Debug/ProgrammaticLayout.dll"
+#r "../ProgrammaticLayout.Workbooks/bin/Debug/ProgrammaticLayout.Workbooks.dll"
+
+using ProgrammaticLayout;
+```
+
+### Hello world example
+
+```csharp
+var (ui, s) = StyleLibrary.Start();
+var view = ui.Stack().With(
+    new UILabel
+    {
+        Text = "Hello world",
+        TextAlignment = UITextAlignment.Center
+    }
+);
+```
+
+### Something more complex
+
+```csharp
+var (ui, s) = StyleLibrary.Start();
+// ui - creates new views
+// s - provides styles to customize the views
+
+// create view with UIStackView inside and insert something into it
+var view = ui.Stack(s.Margins(16)).With( // set spacing between children and padding on stack view to 16
+    ui.Label("Hello world"), // add simple label
+    ui.Label("Another label", s.TextCentered), // add label with custom styling
+    ui.Space(), // add UIView that will fill remaining space
+    ui.Space(s.Height(10), s.Background(UIColor.LightGray))
+);
+```
+
+### Building alert view clone
+
+```csharp
+var (ui, s) = StyleLibrary.Start();
+
+UIButton button1;
+UIButton button2;
+UILabel messageLabel;
+
+var alertColor = UIColor.FromWhiteAlpha(0.9f, 1.0f);
+
+var view = ui.StackIn(ui.Space(s.CornerRadius(8), s.Background(alertColor))).With(
+    ui.Stack(s.Padding(16)).With(
+        ui.Label("Ooops!", s.TextCentered),
+        messageLabel = ui.Label("Something went wrong.", s.TextCentered,x => x.Lines = 0)
+    ),
+    ui.Space(s.Height(s.OnePixel), s.Background(UIColor.Black)),
+    ui.Stack(s.Horizontal).With(
+        button1 = ui.SystemButton("OK"),
+        ui.Space(s.Width(s.OnePixel), s.Background(UIColor.Black)),
+        button2 = ui.SystemButton("Cancel")
+    )
+);
+
+// not everything can be expressed in the library
+// in which case we can rollback to other APIs
+button1.WidthAnchor.ConstraintEqualTo(button2.WidthAnchor).Active = true;
+messageLabel.SetContentHuggingPriority(0, UILayoutConstraintAxis.Vertical);
+view
+```
+
+### Writing custom styles
+
+```csharp
+var (ui, s) = StyleLibrary.Start();
+
+// Styles are just delegates that take UIView.
+Style<UIView> customStyle1 = (view) => view.BackgroundColor = UIColor.Red;
+
+// C# behaviour let's us convert methods into Style<UIView> without any additional code.
+void CustomStyle2(UIView view)
+{
+    view.Layer.CornerRadius = 16;
+}
+
+// Styles can be combined and saved for reuse.
+var customStyle3 = customStyle1 + CustomStyle2;
+
+var view = new UIView();
+ui.ApplyStyles(view, customStyle3);
+view
+```
+
+### Styling existing views
+
+```csharp
+var (ui, s) = StyleLibrary.Start();
+var view = new UIView();
+
+ui.ApplyStyles(view, s.Background(UIColor.Gray), s.CornerRadius(16));
+view
+```

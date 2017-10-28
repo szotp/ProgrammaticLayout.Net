@@ -1,0 +1,28 @@
+---
+uti: com.xamarin.workbook
+id: 18b2085d-9813-4e27-91b2-dddd8705667b
+title: RapidDevelopment
+platforms:
+- iOS
+---
+
+Template for quickly designing layouts
+
+```csharp
+#r "../ProgrammaticLayout/bin/Debug/ProgrammaticLayout.dll"
+#r "../ProgrammaticLayout.Workbooks/bin/Debug/ProgrammaticLayout.Workbooks.dll"
+
+using ProgrammaticLayout;
+var helper = new WorkbooksHelper();
+```
+
+Below you can experiment with the library by modifying the `View` variable. With Xamarin Workbooks you can get almost instant WYSIWYG result.
+
+```csharp
+var view = helper.FreshView();
+var (ui, s) = StyleLibrary.Start();
+
+ui.StackIn(view, s.UseLayoutGuides).With(
+    ui.SystemButton("Click me!")
+);;
+```
