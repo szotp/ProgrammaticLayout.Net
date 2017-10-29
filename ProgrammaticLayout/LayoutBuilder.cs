@@ -9,8 +9,10 @@
 
     /// <summary>
     /// Builds relation between superview and it's children.
+    /// Note: LayoutBuilder inherits from UIView only to simplify the builder API.
+    /// It lets us supply Style<UIView> and Style<LayoutBuilder> in the same array.
     /// </summary>
-    public sealed class LayoutBuilder
+    public sealed class LayoutBuilder : UIView
     {
         public PaddingOptions PaddingOptions { get; } = new PaddingOptions();
         public StackingOptions StackingOptions { get; } = new StackingOptions();
@@ -25,6 +27,7 @@
         public LayoutBuilder(UIView view)
         {
             _view = view;
+            OuterContainer = _view;
         }
 
         public LayoutBuilder Horizontal()

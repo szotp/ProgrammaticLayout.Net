@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammaticLayout.Workbooks", "ProgrammaticLayout.Workbooks\ProgrammaticLayout.Workbooks.csproj", "{24C5232F-4432-42D4-85CB-F20476345924}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C98EBD4B-55EE-405F-B191-4B1272BA4537}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution

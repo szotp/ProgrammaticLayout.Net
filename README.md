@@ -5,13 +5,12 @@ This code:
 ```csharp
 var (ui, s) = StyleLibrary.Start();
 
-var containerStyle = s.Background(UIColor.Gray) + s.Width(200) + s.CornerRadius(4);
+var containerStyle = s.Background(UIColor.Red) + s.Width(200) + s.CornerRadius(4);
 var fieldStyle = s.Background(UIColor.White);
 var buttonStyle = s.Background(UIColor.Black) + s.Height(50) + s.CornerRadius(4);
 
-ui.ApplyStyles(View, s.Background(UIColor.LightGray)); //View from UIViewController
-ui.StackIn(View, s.Centered).With(
-    ui.StackIn(ui.Space(containerStyle), s.Margins(8)).With(
+ui.StackIn(View, s.Centered, s.Background(UIColor.LightGray)).With(
+    ui.Stack(containerStyle, s.Margins(8)).With(
         ui.TextField("Login", fieldStyle),
         ui.TextField("Password", fieldStyle),
         ui.Stack(s.Horizontal, s.FillEqually, s.Spacing(8)).With(

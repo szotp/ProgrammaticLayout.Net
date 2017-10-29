@@ -33,6 +33,7 @@
             };
         }
 
+
         public Style<UIView> CornerRadius(float value)
         {
             return (view) => view.Layer.CornerRadius = value;
@@ -53,25 +54,25 @@
             };
         }
 
-        public LayoutStyle Padding(float value) => (view) => view.Padding(value);
-        public LayoutStyle Padding(float? leading, float? trailing, float? top, float? bottom) => (view) => view.Padding(leading, trailing, top, bottom);
-        public LayoutStyle Spacing(float value) => (view) => view.Spacing(value);
-        public LayoutStyle Margins(float value) => (view) => view.Margins(value);
-        public LayoutStyle Horizontal => (view) => view.StackingOptions.Axis = UILayoutConstraintAxis.Horizontal;
-        public LayoutStyle Distribution(UIStackViewDistribution value) => (layout) => layout.StackingOptions.Distribution = value;
-        public LayoutStyle Alignment(UIStackViewAlignment value) => (layout) => layout.StackingOptions.Alignment = value;
-        public LayoutStyle AlignmentCentered => (layout) => layout.StackingOptions.Alignment = UIStackViewAlignment.Center;
-        public LayoutStyle UseLayoutGuides => (layout) => layout.UseLayoutGuides();
-        public LayoutStyle Centered => (layout) => 
+        public Style<LayoutBuilder> Padding(float value) => (view) => view.Padding(value);
+        public Style<LayoutBuilder> Padding(float? leading, float? trailing, float? top, float? bottom) => (view) => view.Padding(leading, trailing, top, bottom);
+        public Style<LayoutBuilder> Spacing(float value) => (view) => view.Spacing(value);
+        public Style<LayoutBuilder> Margins(float value) => (view) => view.Margins(value);
+        public Style<LayoutBuilder> Horizontal => (view) => view.StackingOptions.Axis = UILayoutConstraintAxis.Horizontal;
+        public Style<LayoutBuilder> Distribution(UIStackViewDistribution value) => (layout) => layout.StackingOptions.Distribution = value;
+        public Style<LayoutBuilder> Alignment(UIStackViewAlignment value) => (layout) => layout.StackingOptions.Alignment = value;
+        public Style<LayoutBuilder> AlignmentCentered => (layout) => layout.StackingOptions.Alignment = UIStackViewAlignment.Center;
+        public Style<LayoutBuilder> UseLayoutGuides => (layout) => layout.UseLayoutGuides();
+        public Style<LayoutBuilder> Centered => (layout) => 
         {
             layout.PaddingOptions.Default = null;
             layout.PaddingOptions.CenterY = 0;
             layout.PaddingOptions.CenterX = 0;
         };
 
-        public LayoutStyle FillEqually => (layout) => layout.StackingOptions.Distribution = UIStackViewDistribution.FillEqually;
+        public Style<LayoutBuilder> FillEqually => (layout) => layout.StackingOptions.Distribution = UIStackViewDistribution.FillEqually;
 
-        public LayoutStyle CenterY() => (layout) =>
+        public Style<LayoutBuilder> CenterY() => (layout) =>
         {
             if (layout.PaddingOptions.Default.HasValue)
             {
@@ -84,7 +85,7 @@
             layout.PaddingOptions.CenterY = 0;
         };
 
-        public LayoutStyle CenterX() => (layout) =>
+        public Style<LayoutBuilder> CenterX() => (layout) =>
         {
             if (layout.PaddingOptions.Default.HasValue)
             {

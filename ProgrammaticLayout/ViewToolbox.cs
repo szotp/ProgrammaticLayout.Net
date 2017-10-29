@@ -32,17 +32,24 @@
             }, styles);
         }
 
-        public LayoutBuilder StackIn(UIView superview, params LayoutStyle[] styles)
+        public LayoutBuilder StackIn(UIView superview, params Style<LayoutBuilder>[] styles)
         {
-            var builder = new LayoutBuilder(superview ?? new UIView());
+            var view = superview ?? new UIView();
+            var builder = new LayoutBuilder(view);
             foreach (var item in styles)
             {
+                if(item is Style<UIView> style)
+                {
+                    style(view);
+                    continue;
+                }
+
                 item(builder);
             }
             return builder;
         }
 
-        public LayoutBuilder Stack(params LayoutStyle[] styles)
+        public LayoutBuilder Stack(params Style<LayoutBuilder>[] styles)
         {
             return StackIn(new UIView(), styles);
         }
