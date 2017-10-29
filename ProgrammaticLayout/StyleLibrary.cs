@@ -1,6 +1,8 @@
 ﻿namespace ProgrammaticLayout
 {
     using System;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
     using UIKit;
 
     public delegate void Style<in T>(T view);
@@ -11,16 +13,25 @@
     /// </summary>
     public class StyleLibrary
     {
-        public Style<UIView> AspectRatio(float value) => (view) => view.WidthAnchor.ConstraintEqualTo(view.HeightAnchor, value).Active = true;
-        public Style<UIView> Height(float value) => (view) => view.HeightAnchor.ConstraintEqualTo(value).Active = true;
-        public Style<UIView> Width(float value) => (view) => view.WidthAnchor.ConstraintEqualTo(value).Active = true;
+        public float DefaultLayoutPriority = 750;
+
+        void Activate(NSLayoutConstraint constraint, [CallerMemberName] string identifier = null)
+        {
+            constraint.SetIdentifier(identifier);
+            constraint.Priority = DefaultLayoutPriority;
+            constraint.Active = true;
+        }
+
+        public Style<UIView> AspectRatio(float value) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(view.HeightAnchor, value));
+        public Style<UIView> Height(float value) => (view) => Activate(view.HeightAnchor.ConstraintEqualTo(value));
+        public Style<UIView> Width(float value) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(value));
         public Style<UIView> Size(float value) => Width(value) + Height(value);
         public Style<UIView> Background(UIColor color) => (view) => view.BackgroundColor = color;
         public Style<UILabel> FontSize(float size) => (view) => view.Font = UIFont.SystemFontOfSize(size);
         public Style<UILabel> TextCentered => (view) => view.TextAlignment = UITextAlignment.Center;
 
-        public Style<UIView> WidthSameAs(UIView other) => (view) => view.WidthAnchor.ConstraintEqualTo(other.WidthAnchor).Active = true;
-        public Style<UIView> HeightSameAs(UIView other) => (view) => view.HeightAnchor.ConstraintEqualTo(other.HeightAnchor).Active = true;
+        public Style<UIView> WidthSameAs(UIView other) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(other.WidthAnchor));
+        public Style<UIView> HeightSameAs(UIView other) => (view) => Activate(view.HeightAnchor.ConstraintEqualTo(other.HeightAnchor));
 
         public Style<T> Combine<T>(params Style<T>[] styles)
         {
@@ -102,6 +113,14 @@
         {
             return (new ViewToolbox(), new StyleLibrary());
         }
+
+        /// <summary>
+        /// Returns constraint created by this object or PaddingOptions.
+        /// Identifier would be the same as method name or property associated with constraint.
+        /// <example><code>s.GetConstraint(View, nameof(StyleLibrary.Height))</code></example>  
+        /// <example><code>s.GetConstraint(View, nameof(PaddingOptions.Top))</code></example>  
+        /// </summary>
+        public NSLayoutConstraint GetConstraint(UIView view, string identifier) => view.Constraints.First(x => x.GetIdentifier() == identifier);
 
         public float OnePixel => 1 / (float)UIScreen.MainScreen.Scale;
     }

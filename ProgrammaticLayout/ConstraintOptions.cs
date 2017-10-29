@@ -21,7 +21,7 @@ namespace ProgrammaticLayout
             return new ConstraintOptions(constant);
         }
 
-        public NSLayoutConstraint Create(NSLayoutXAxisAnchor from, NSLayoutXAxisAnchor into)
+        public NSLayoutConstraint Create(string identifier, NSLayoutXAxisAnchor from, NSLayoutXAxisAnchor into)
         {
             NSLayoutConstraint constraint = null;
             switch (Relation)
@@ -31,11 +31,12 @@ namespace ProgrammaticLayout
                 case NSLayoutRelation.GreaterThanOrEqual: constraint = from.ConstraintGreaterThanOrEqualTo(into, Constant); break;
             }
 
+            constraint.SetIdentifier(identifier);
             constraint.Active = true;
             return constraint;
         }
 
-        public NSLayoutConstraint Create(NSLayoutYAxisAnchor from, NSLayoutYAxisAnchor into)
+        public NSLayoutConstraint Create(string identifier, NSLayoutYAxisAnchor from, NSLayoutYAxisAnchor into)
         {
             NSLayoutConstraint constraint = null;
             switch (Relation)
@@ -45,6 +46,7 @@ namespace ProgrammaticLayout
                 case NSLayoutRelation.GreaterThanOrEqual: constraint = from.ConstraintGreaterThanOrEqualTo(into, Constant); break;
             }
 
+            constraint.SetIdentifier(identifier);
             constraint.Active = true;
             return constraint;
         }

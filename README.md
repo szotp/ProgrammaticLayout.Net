@@ -5,7 +5,7 @@ This code:
 ```csharp
 var (ui, s) = StyleLibrary.Start();
 
-var containerStyle = s.Background(UIColor.Red) + s.Width(200) + s.CornerRadius(4);
+var containerStyle = s.Background(UIColor.Gray) + s.Width(200) + s.CornerRadius(4);
 var fieldStyle = s.Background(UIColor.White);
 var buttonStyle = s.Background(UIColor.Black) + s.Height(50) + s.CornerRadius(4);
 
