@@ -43,6 +43,7 @@
         public Style<UILabel> FontSize(float size) => (view) => view.Font = UIFont.SystemFontOfSize(size);
         public Style<UILabel> TextCentered => (view) => view.TextAlignment = UITextAlignment.Center;
         public Style<UILabel> Multiline => (view) => view.Lines = 0;
+        public Style<UILabel> TextColor(UIColor lightGray) => view => view.TextColor = lightGray;
 
         public Style<UIView> WidthSameAs(UIView other) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(other.WidthAnchor));
         public Style<UIView> HeightSameAs(UIView other) => (view) => Activate(view.HeightAnchor.ConstraintEqualTo(other.HeightAnchor));
