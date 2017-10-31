@@ -19,6 +19,7 @@
 
         public UIView OuterContainer { get; private set; }
         public UIView InnerContainer { get; set; }
+        public bool Scrollable { get; set; }
 
         bool useLayoutGuides = false;
 
@@ -87,7 +88,16 @@
         public UIView With(params UIView[] children)
         {
             OuterContainer = _view;
+
             InnerContainer = StackingOptions.Build(children.ToArray());
+
+            if (Scrollable)
+            {
+                var inner = InnerContainer;
+                var scrollView = new UIScrollView();
+                InnerContainer = new LayoutBuilder(scrollView).With(InnerContainer);
+                scrollView.WidthAnchor.ConstraintEqualTo(inner.WidthAnchor).Active = true;
+            }
 
             StackingOptions?.Apply(this);
 

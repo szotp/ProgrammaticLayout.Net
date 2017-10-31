@@ -39,8 +39,10 @@
         public Style<UIView> Width(float value) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(value));
         public Style<UIView> Size(float value) => Width(value) + Height(value);
         public Style<UIView> Background(UIColor color) => (view) => view.BackgroundColor = color;
+
         public Style<UILabel> FontSize(float size) => (view) => view.Font = UIFont.SystemFontOfSize(size);
         public Style<UILabel> TextCentered => (view) => view.TextAlignment = UITextAlignment.Center;
+        public Style<UILabel> Multiline => (view) => view.Lines = 0;
 
         public Style<UIView> WidthSameAs(UIView other) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(other.WidthAnchor));
         public Style<UIView> HeightSameAs(UIView other) => (view) => Activate(view.HeightAnchor.ConstraintEqualTo(other.HeightAnchor));
@@ -77,6 +79,7 @@
             };
         }
 
+        public Style<LayoutBuilder> Scrollable => (view) => view.Scrollable = true;
         public Style<LayoutBuilder> Padding(float value) => (view) => view.Padding(value);
         public Style<LayoutBuilder> Padding(float? leading, float? trailing, float? top, float? bottom) => (view) => view.Padding(leading, trailing, top, bottom);
         public Style<LayoutBuilder> Spacing(float value) => (view) => view.Spacing(value);
