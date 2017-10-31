@@ -123,7 +123,8 @@
 
         public static (ViewToolbox, StyleLibrary) Start()
         {
-            return (new ViewToolbox(), new StyleLibrary());
+            var toolbox = new ViewToolbox();
+            return (toolbox, toolbox.Styles);
         }
 
         /// <summary>

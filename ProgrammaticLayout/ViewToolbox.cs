@@ -9,6 +9,8 @@
     {
         public Style<UIView> All { get; set; }
 
+        public StyleLibrary Styles { get; } = new StyleLibrary();
+
         public T View<T>(T view, params Style<T>[] styles) where T : UIView
         {
             foreach (var item in styles)
@@ -17,6 +19,11 @@
             }
             All?.Invoke(view);
             return view;
+        }
+
+        public void SetDebugMode()
+        {
+            All = Styles.Border(UIColor.Red.ColorWithAlpha(.5f), 2);
         }
 
         public void ApplyStyles<T>(T view, params Style<T>[] styles)
