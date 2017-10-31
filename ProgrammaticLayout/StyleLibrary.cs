@@ -13,7 +13,7 @@
     /// </summary>
     public class StyleLibrary
     {
-        public float DefaultLayoutPriority = 750;
+        public float DefaultLayoutPriority = 999;
 
         void Activate(NSLayoutConstraint constraint, [CallerMemberName] string identifier = null)
         {
@@ -21,6 +21,18 @@
             constraint.Priority = DefaultLayoutPriority;
             constraint.Active = true;
         }
+
+        /// <summary>
+        /// Sets high hugging priority so that the view will resize easily. Should not be called multiple times for the same level.
+        /// </summary>
+        /// <returns>The hug.</returns>
+        public Style<UIView> AvoidResizing() => (view) =>
+        {
+            view.SetContentCompressionResistancePriority(1000, UILayoutConstraintAxis.Horizontal);
+            view.SetContentCompressionResistancePriority(1000, UILayoutConstraintAxis.Vertical);
+            view.SetContentHuggingPriority(1000, UILayoutConstraintAxis.Horizontal);
+            view.SetContentHuggingPriority(1000, UILayoutConstraintAxis.Vertical);
+        };
 
         public Style<UIView> AspectRatio(float value) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(view.HeightAnchor, value));
         public Style<UIView> Height(float value) => (view) => Activate(view.HeightAnchor.ConstraintEqualTo(value));

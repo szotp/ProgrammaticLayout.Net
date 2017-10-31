@@ -7,12 +7,15 @@
     /// </summary>
     public class ViewToolbox
     {
-        public T View<T>(T view, params Style<T>[] styles)
+        public Style<UIView> All { get; set; }
+
+        public T View<T>(T view, params Style<T>[] styles) where T : UIView
         {
             foreach (var item in styles)
             {
                 item(view);
             }
+            All?.Invoke(view);
             return view;
         }
 
