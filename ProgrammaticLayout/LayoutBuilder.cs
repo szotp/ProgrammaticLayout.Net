@@ -85,6 +85,15 @@
             return this;
         }
 
+        public LayoutBuilder Apply(params Style<UIView>[] styles)
+        {
+            foreach (var item in styles)
+            {
+                item(_view);
+            }
+            return this;
+        }
+
         public UIView With(params UIView[] children)
         {
             OuterContainer = _view;

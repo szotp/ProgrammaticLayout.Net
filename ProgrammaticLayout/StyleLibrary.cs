@@ -48,12 +48,20 @@
         public Style<UIView> WidthSameAs(UIView other) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(other.WidthAnchor));
         public Style<UIView> HeightSameAs(UIView other) => (view) => Activate(view.HeightAnchor.ConstraintEqualTo(other.HeightAnchor));
 
-        public Style<T> Combine<T>(params Style<T>[] styles)
+        public Style<T> Combine<T>(params Style<T>[] styles) where T : UIView
         {
             return (view) =>
             {
+                var builder = view as LayoutBuilder;
+
                 foreach (var item in styles)
                 {
+                    if (builder != null && item is Style<UIView> style)
+                    {
+                        style(builder.OuterContainer);
+                        continue;
+                    }
+
                     item(view);
                 }
             };
