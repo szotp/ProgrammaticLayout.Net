@@ -35,6 +35,16 @@
         };
 
         public Style<UIView> AspectRatio(float value) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(view.HeightAnchor, value));
+
+        public Style<LayoutBuilder> BottomLeft(float value = 0) => Padding(leading: value, trailing: null, top: null, bottom: value);
+        public Style<LayoutBuilder> BottomRight(float value = 0) => Padding(leading: null, trailing: value, top: null, bottom: value);
+        public Style<LayoutBuilder> TopLeft(float value = 0) => Padding(leading: value, trailing: null, top: value, bottom: null);
+        public Style<LayoutBuilder> TopRight(float value = 0) => Padding(leading: null, trailing: value, top: value, bottom: null);
+
+        public Style<LayoutBuilder> TopAndSides(float value = 0) => Padding(leading: value, trailing: value, top: value, bottom: null);
+        public Style<LayoutBuilder> BottomAndSides(float value = 0) => Padding(leading: value, trailing: value, top: null, bottom: value);
+
+
         public Style<UIView> Height(float value) => (view) => Activate(view.HeightAnchor.ConstraintEqualTo(value));
         public Style<UIView> Width(float value) => (view) => Activate(view.WidthAnchor.ConstraintEqualTo(value));
         public Style<UIView> Size(float value) => Width(value) + Height(value);
@@ -81,7 +91,7 @@
 
         public Style<UIView> Border(UIColor color, nfloat width)
         {
-            return (view) => 
+            return (view) =>
             {
                 view.Layer.BorderColor = color.CGColor;
                 view.Layer.BorderWidth = width;
@@ -98,7 +108,7 @@
         public Style<LayoutBuilder> Alignment(UIStackViewAlignment value) => (layout) => layout.StackingOptions.Alignment = value;
         public Style<LayoutBuilder> AlignmentCentered => (layout) => layout.StackingOptions.Alignment = UIStackViewAlignment.Center;
         public Style<LayoutBuilder> UseLayoutGuides => (layout) => layout.UseLayoutGuides();
-        public Style<LayoutBuilder> Centered => (layout) => 
+        public Style<LayoutBuilder> Centered => (layout) =>
         {
             layout.PaddingOptions.Default = null;
             layout.PaddingOptions.CenterY = 0;
